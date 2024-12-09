@@ -1,0 +1,1 @@
+# Uygulama-sanalla-t-rma
