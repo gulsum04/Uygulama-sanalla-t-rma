@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+  webapp:
+    build:
+      context: .  # Proje dizini
+      dockerfile: Dockerfile  # Dockerfile yolu
+    ports:
+      - "5000:80"  # Webapp'in 5000 numaralı portu dışarıya açılır
+    depends_on:
+      - sqlserver  # SQL Server container'ına bağlı
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=biletinial_new;User=sa;Password=Strong@Password123;TrustServerCertificate=True
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest  # SQL Server 2019 imajı
+    container_name: sqlserver
+    environment:
+      SA_PASSWORD: "Strong@Password123"
+      ACCEPT_EULA: "Y"  # Microsoft lisans anlaşmasını kabul eder
+    ports:
+      - "1433:1433"  # SQL Server dış port 1433, iç port 1433
+    volumes:
+      - sql_data:/var/opt/mssql  # Veritabanı verileri için kalıcı volume
+
+volumes:
+  sql_data: {}  # SQL veritabanı verileri için bir volume
