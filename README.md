@@ -1,1 +1,1 @@
-# Uygulama-sanalla-t-rma
+# Uygulama-sanallaştırmarma
